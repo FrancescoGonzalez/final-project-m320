@@ -3,14 +3,24 @@ package org.gonzalez.finalprojectm320.controller;
 import org.gonzalez.finalprojectm320.model.Customer;
 import org.gonzalez.finalprojectm320.model.Reservation;
 import org.gonzalez.finalprojectm320.model.Room;
+import org.gonzalez.finalprojectm320.service.MyService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class Controller {
 
-    @PutMapping("/createReservation")
+    @Autowired
+    private MyService service;
+
+    @PutMapping("/create-reservation")
     void createReservation(@RequestBody Reservation r) {
 
+    }
+
+    @PutMapping("/create-customer")
+    void createCustomer(@RequestBody Customer c) {
+        service.createCustomer(c);
     }
 
     @PutMapping("/update/{id}")
