@@ -1,36 +1,36 @@
 package org.gonzalez.finalprojectm320.model;
 
 public class Reservation {
-    private int id;
-    private Customer customer;
+    private int reservationNumber;
+    private String customerId;
     private int numberOfPeople;
-    private Room room;
+    private int roomNumber;
     private String beginDate;
     private String endDate;
 
-    public Reservation(int id, Customer customer, int numberOfPeople, Room room, String beginDate, String endDate) {
-        this.id = id;
-        this.customer = customer;
+    public Reservation(int reservationNumber, String customerId, int numberOfPeople, int roomNumber, String beginDate, String endDate) {
+        this.reservationNumber = reservationNumber;
+        this.customerId = customerId;
         this.numberOfPeople = numberOfPeople;
-        this.room = room;
+        this.roomNumber = roomNumber;
         this.beginDate = beginDate;
         this.endDate = endDate;
     }
 
-    public int getId() {
-        return id;
+    public int getReservationNumber() {
+        return reservationNumber;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public String getCustomerId() {
+        return customerId;
     }
 
     public int getNumberOfPeople() {
         return numberOfPeople;
     }
 
-    public Room getRoom() {
-        return room;
+    public int getRoomNumber() {
+        return roomNumber;
     }
 
     public String getBeginDate() {

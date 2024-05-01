@@ -7,6 +7,8 @@ import org.gonzalez.finalprojectm320.service.MyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class Controller {
 
@@ -15,7 +17,7 @@ public class Controller {
 
     @PutMapping("/create-reservation")
     void createReservation(@RequestBody Reservation r) {
-
+        service.createReservation(r);
     }
 
     @PutMapping("/create-customer")
@@ -23,13 +25,28 @@ public class Controller {
         service.createCustomer(c);
     }
 
-    @PutMapping("/update/{id}")
-    void updateReservation(@RequestBody Reservation newReservation) {
-
+    @PutMapping("/create-room")
+    void createRoom(@RequestBody Room r) {
+        service.createRoom(r);
     }
 
-    @GetMapping("/reservation/{id}")
+    @GetMapping("/get-customers")
+    List<Customer> getCustomers() {
+        return service.getCustomers();
+    }
+
+    @GetMapping("/get-reservations")
+    List<Reservation> getReservations() {
+        return service.getReservations();
+    }
+
+    @GetMapping("/get-singular-reservation/{id}")
     Reservation getReservation(@PathVariable int id) {
-        return new Reservation(1, new Customer("Fabio", "Giger", 2007, "CH"), 2, new Room(203, 3, 67.50), "2.3.2024", "4.3.2024");
+        return service.getReservation(id);
+    }
+
+    @PutMapping("/update/{id}")
+    void updateReservation(@PathVariable int id,  @RequestBody Reservation newReservation) {
+        service.updateReservation(id, newReservation);
     }
 }

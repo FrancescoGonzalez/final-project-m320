@@ -1,6 +1,7 @@
 package org.gonzalez.finalprojectm320.config;
 
 import org.gonzalez.finalprojectm320.repository.MongoDBRepository;
+import org.gonzalez.finalprojectm320.repository.RepositoryInterface;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -8,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class MyConfiguration {
 
     @Bean
-    MongoDBRepository getMongoDBRepository() {
+    RepositoryInterface getRepositoryInterface() {
         return new MongoDBRepository();
     }
 }
