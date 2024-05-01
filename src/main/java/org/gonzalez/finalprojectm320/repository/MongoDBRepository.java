@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MongoDBRepository implements RepositoryInterface{
-    private MongoCollection<Document> rooms;
-    private MongoCollection<Document> customers;
-    private MongoCollection<Document> reservations;
+    private final MongoCollection<Document> rooms;
+    private final MongoCollection<Document> customers;
+    private final MongoCollection<Document> reservations;
 
     public MongoDBRepository() {
         MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
@@ -23,7 +23,7 @@ public class MongoDBRepository implements RepositoryInterface{
         this.reservations = db.getCollection("Reservation");
     }
 
-    public void createCustomer(Customer c) {
+    public boolean createCustomer(Customer c) {
         Document document = new Document();
         document.put("id", c.getId());
         document.put("name", c.getName());
@@ -31,19 +31,21 @@ public class MongoDBRepository implements RepositoryInterface{
         document.put("birth-year", c.getBirthYear());
         document.put("nationality", c.getNationality());
         customers.insertOne(document);
+        return true;
     }
 
     @Override
-    public void createRoom(Room r) {
+    public boolean createRoom(Room r) {
         Document document = new Document();
         document.put("number", r.getNumber());
         document.put("max-people", r.getMaxPeople());
         document.put("price-for-person", r.getPriceForPerson());
         rooms.insertOne(document);
+        return true;
     }
 
     @Override
-    public void createReservation(Reservation r) {
+    public boolean createReservation(Reservation r) {
         Document document = new Document();
         document.put("reservation-number", r.getReservationNumber());
         document.put("customer", r.getCustomerId());
@@ -52,6 +54,7 @@ public class MongoDBRepository implements RepositoryInterface{
         document.put("begin-date", r.getBeginDate());
         document.put("end-date", r.getEndDate());
         reservations.insertOne(document);
+        return true;
     }
 
     @Override
@@ -91,8 +94,8 @@ public class MongoDBRepository implements RepositoryInterface{
     }
 
     @Override
-    public void updateReservation(int id, Reservation newReservation) {
-
+    public boolean updateReservation(int id, Reservation newReservation) {
+        return true;
     }
 
 }

@@ -16,18 +16,18 @@ public class Controller {
     private MyService service;
 
     @PutMapping("/create-reservation")
-    void createReservation(@RequestBody Reservation r) {
-        service.createReservation(r);
+    boolean createReservation(@RequestBody Reservation r) {
+        return service.createReservation(r);
     }
 
     @PutMapping("/create-customer")
-    void createCustomer(@RequestBody Customer c) {
-        service.createCustomer(c);
+    boolean createCustomer(@RequestBody Customer c) {
+        return service.createCustomer(c);
     }
 
     @PutMapping("/create-room")
-    void createRoom(@RequestBody Room r) {
-        service.createRoom(r);
+    boolean createRoom(@RequestBody Room r) {
+        return service.createRoom(r);
     }
 
     @GetMapping("/get-customers")
@@ -46,7 +46,7 @@ public class Controller {
     }
 
     @PutMapping("/update/{id}")
-    void updateReservation(@PathVariable int id,  @RequestBody Reservation newReservation) {
-        service.updateReservation(id, newReservation);
+    boolean updateReservation(@PathVariable int id,  @RequestBody Reservation newReservation) {
+        return service.updateReservation(id, newReservation);
     }
 }

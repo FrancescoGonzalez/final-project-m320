@@ -15,8 +15,8 @@ public class MyService {
     @Autowired
     private RepositoryInterface repository;
 
-    public void createCustomer(Customer c) {
-        repository.createCustomer(c);
+    public boolean createCustomer(Customer c) {
+        return repository.createCustomer(c);
     }
 
     public List<Customer> getCustomers() {
@@ -24,12 +24,12 @@ public class MyService {
     }
 
 
-    public void createRoom(Room r) {
-        repository.createRoom(r);
+    public boolean createRoom(Room r) {
+        return repository.createRoom(r);
     }
 
-    public void createReservation(Reservation r) {
-        repository.createReservation(r);
+    public boolean createReservation(Reservation r) {
+        return repository.createReservation(r);
     }
 
 
@@ -41,7 +41,7 @@ public class MyService {
         return repository.getReservation(id);
     }
 
-    public void updateReservation(int id, Reservation newReservation) {
-        repository.updateReservation(id, newReservation);
+    public boolean updateReservation(int id, Reservation newReservation) {
+        return repository.updateReservation(id, newReservation);
     }
 }
