@@ -2,17 +2,19 @@ package org.gonzalez.finalprojectm320.service;
 
 import java.util.List;
 import org.gonzalez.finalprojectm320.model.Customer;
-import org.gonzalez.finalprojectm320.model.Reservation;
-import org.gonzalez.finalprojectm320.model.Room;
-import org.gonzalez.finalprojectm320.repository.RepositoryInterface;
+import org.gonzalez.finalprojectm320.repository.CustomerRepository;
+import org.gonzalez.finalprojectm320.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerService {
 
-    @Autowired
-    private RepositoryInterface repository;
+    private final CustomerRepository repository;
+
+    public CustomerService(CustomerRepository customerRepository) {
+        this.repository = customerRepository;
+    }
 
     public boolean createCustomer(Customer c) {
         return repository.createCustomer(c);
