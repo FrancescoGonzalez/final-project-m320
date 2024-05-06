@@ -1,22 +1,24 @@
 package org.gonzalez.finalprojectm320.service;
 
-import org.gonzalez.finalprojectm320.repository.ReservationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
+import org.gonzalez.finalprojectm320.model.Reservation;
+import org.gonzalez.finalprojectm320.repository.interfaces.ReservationRepository;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ReservationService {
 
-    /*@Autowired
-    private ReservationRepository repository;
+    private final ReservationRepository repository;
+
+    public ReservationService(ReservationRepository reservationRepository) {
+        this.repository = reservationRepository;
+    }
 
     public boolean createReservation(org.gonzalez.finalprojectm320.model.Reservation r) {
         return repository.createReservation(r);
     }
 
-    public List<org.gonzalez.finalprojectm320.model.Reservation> getReservations() {
+    public List<Reservation> getReservations() {
         return repository.getReservations();
     }
 
@@ -26,5 +28,5 @@ public class ReservationService {
 
     public boolean updateReservation(int id, org.gonzalez.finalprojectm320.model.Reservation newReservation) {
         return repository.updateReservation(id, newReservation);
-    }*/
+    }
 }

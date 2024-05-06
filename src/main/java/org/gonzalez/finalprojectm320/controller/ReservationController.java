@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 public class ReservationController {
 
-    /*@Autowired
+    @Autowired
     private ReservationService service;
 
     @PostMapping("/reservation")
@@ -18,7 +18,7 @@ public class ReservationController {
         return service.createReservation(r);
     }
 
-    @GetMapping("/reservations")
+    @GetMapping("/reservation")
     List<Reservation> getReservations() {
         return service.getReservations();
     }
@@ -31,5 +31,5 @@ public class ReservationController {
     @PutMapping("/reservation/{id}")
     boolean updateReservation(@PathVariable int id,  @RequestBody Reservation newReservation) {
         return service.updateReservation(id, newReservation);
-    }*/
+    }
 }

@@ -1,7 +1,4 @@
-package org.gonzalez.finalprojectm320.repository;
-
-import org.gonzalez.finalprojectm320.model.Customer;
-import org.gonzalez.finalprojectm320.model.Room;
+package org.gonzalez.finalprojectm320.repository.interfaces;
 
 import java.util.List;
 

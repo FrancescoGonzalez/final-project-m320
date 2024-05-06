@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS customer (
 
 CREATE TABLE IF NOT EXISTS room (
                       id INT PRIMARY KEY auto_increment,
-                      number VARCHAR(50),
+                      room_number INT,
+                      room_type ENUM('SINGLE', 'DOUBLE', 'TRIPLE', 'QUAD', 'JUNIOR-SUITE', 'PRESIDENTIAL-SUITE'),
                       max_people INT,
                       price_per_person DECIMAL(10, 2)
 );

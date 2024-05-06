@@ -5,6 +5,7 @@ import java.sql.Statement;
 import java.util.List;
 import org.gonzalez.finalprojectm320.model.Customer;
 import org.gonzalez.finalprojectm320.repository.mapper.CustomerMapper;
+import org.gonzalez.finalprojectm320.repository.interfaces.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -16,8 +17,8 @@ public class JdbcCustomerRepository implements CustomerRepository {
 
   private final JdbcTemplate jdbcTemplate;
 
-  private static final String INSERT_CUSTOMER = "INSERT INTO customer (first_name, last_name, birth_date, nationality) VALUES (?, ?, ?, ?);";
-  private static final String SELECT_CUSTOMERS = "SELECT * FROM customer;";
+  private static final String INSERT = "INSERT INTO customer (first_name, last_name, birth_date, nationality) VALUES (?, ?, ?, ?);";
+  private static final String SELECT = "SELECT * FROM customer;";
 
   @Autowired
   public JdbcCustomerRepository(JdbcTemplate jdbcTemplate) {
@@ -29,7 +30,7 @@ public class JdbcCustomerRepository implements CustomerRepository {
     KeyHolder keyHolder = new GeneratedKeyHolder();
 
     jdbcTemplate.update(connection -> {
-      PreparedStatement ps = connection.prepareStatement(INSERT_CUSTOMER,
+      PreparedStatement ps = connection.prepareStatement(INSERT,
           Statement.RETURN_GENERATED_KEYS);
       ps.setString(1, c.firstName());
       ps.setString(2, c.lastName());
@@ -43,6 +44,6 @@ public class JdbcCustomerRepository implements CustomerRepository {
 
   @Override
   public List<Customer> getCustomers() {
-    return jdbcTemplate.query(SELECT_CUSTOMERS, new CustomerMapper());
+    return jdbcTemplate.query(SELECT, new CustomerMapper());
   }
 }

@@ -1,9 +1,7 @@
-package org.gonzalez.finalprojectm320.repository;
+package org.gonzalez.finalprojectm320.repository.interfaces;
 
 import java.util.List;
 import org.gonzalez.finalprojectm320.model.Customer;
-import org.gonzalez.finalprojectm320.model.Reservation;
-import org.gonzalez.finalprojectm320.model.Room;
 
 public interface CustomerRepository {
     boolean createCustomer(Customer c);

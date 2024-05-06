@@ -2,9 +2,7 @@ package org.gonzalez.finalprojectm320.service;
 
 import java.util.List;
 import org.gonzalez.finalprojectm320.model.Customer;
-import org.gonzalez.finalprojectm320.repository.CustomerRepository;
-import org.gonzalez.finalprojectm320.repository.ReservationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.gonzalez.finalprojectm320.repository.interfaces.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 @Service
