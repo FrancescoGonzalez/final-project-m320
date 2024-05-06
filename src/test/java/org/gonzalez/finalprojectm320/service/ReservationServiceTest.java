@@ -15,13 +15,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class MyServiceTest {
+class ReservationServiceTest {
 
     @Autowired
     private RepositoryInterface repository;
 
     @Autowired
-    private MyService service;
+    private ReservationService service;
 
     @Test
     void createCustomer() {

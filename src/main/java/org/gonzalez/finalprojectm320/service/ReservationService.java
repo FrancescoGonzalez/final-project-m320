@@ -10,28 +10,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class MyService {
+public class ReservationService {
 
     @Autowired
     private RepositoryInterface repository;
 
-    public boolean createCustomer(Customer c) {
-        return repository.createCustomer(c);
-    }
-
-    public List<Customer> getCustomers() {
-        return repository.getCustomers();
-    }
-
-
-    public boolean createRoom(Room r) {
-        return repository.createRoom(r);
-    }
-
     public boolean createReservation(Reservation r) {
         return repository.createReservation(r);
     }
-
 
     public List<Reservation> getReservations() {
         return repository.getReservations();
