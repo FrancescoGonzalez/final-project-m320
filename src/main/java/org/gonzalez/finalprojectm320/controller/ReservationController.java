@@ -49,4 +49,9 @@ public class ReservationController {
     Room getReservationRoom(@PathVariable int id) {
         return service.getReservationRoom(id);
     }
+
+    @GetMapping("/reservation/{id}/customer")
+    Customer getReservationCustomer(@PathVariable int id) {
+        return service.getReservationCustomer(id);
+    }
 }

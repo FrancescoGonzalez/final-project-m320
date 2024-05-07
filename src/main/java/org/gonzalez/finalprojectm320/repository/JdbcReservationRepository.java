@@ -3,9 +3,11 @@ package org.gonzalez.finalprojectm320.repository;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
+import org.gonzalez.finalprojectm320.model.Customer;
 import org.gonzalez.finalprojectm320.model.Reservation;
 import org.gonzalez.finalprojectm320.model.Room;
 import org.gonzalez.finalprojectm320.repository.interfaces.ReservationRepository;
+import org.gonzalez.finalprojectm320.repository.mapper.CustomerMapper;
 import org.gonzalez.finalprojectm320.repository.mapper.ReservationMapper;
 import org.gonzalez.finalprojectm320.repository.mapper.RoomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,5 +88,14 @@ public class JdbcReservationRepository implements ReservationRepository {
       return null;
     }
 
+  }
+
+  @Override
+  public Customer getReservationCustomer(int id) {
+    try {
+      return jdbcTemplate.queryForObject("Select * from customer where id = (Select fk_customer from reservation where id = ?)", new CustomerMapper(), id);
+    } catch (EmptyResultDataAccessException e) {
+      return null;
+    }
   }
 }

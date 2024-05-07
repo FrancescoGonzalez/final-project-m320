@@ -1,6 +1,7 @@
 package org.gonzalez.finalprojectm320.service;
 
 import java.util.List;
+import org.gonzalez.finalprojectm320.model.Customer;
 import org.gonzalez.finalprojectm320.model.Reservation;
 import org.gonzalez.finalprojectm320.model.Room;
 import org.gonzalez.finalprojectm320.repository.interfaces.ReservationRepository;
@@ -37,5 +38,9 @@ public class ReservationService {
 
     public Room getReservationRoom(int id) {
         return repository.getReservationRoom(id);
+    }
+
+    public Customer getReservationCustomer(int id) {
+        return repository.getReservationCustomer(id);
     }
 }
