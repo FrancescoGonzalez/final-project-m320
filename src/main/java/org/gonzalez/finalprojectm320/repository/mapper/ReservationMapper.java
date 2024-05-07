@@ -16,7 +16,7 @@ public class ReservationMapper implements RowMapper<Reservation>{
     String[] timeArr2 = rs.getString("check_out").split("-");
     LocalDate checkOut = LocalDate.of(Integer.parseInt(timeArr2[0]), Integer.parseInt(timeArr2[1]), Integer.parseInt(timeArr2[2]));
 
-    return new Reservation().createReservation(
+    return new Reservation(
         rs.getInt("id"),
         rs.getInt("fk_customer"),
         rs.getInt("fk_room"),
