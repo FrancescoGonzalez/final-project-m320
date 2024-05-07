@@ -11,12 +11,12 @@ public class ReservationMapper implements RowMapper<Reservation>{
   public Reservation mapRow(ResultSet rs, int rowNum) throws SQLException {
 
     String[] timeArr1 = rs.getString("check_in").split("-");
-    LocalDate checkIn = LocalDate.of(Integer.parseInt(timeArr1[0]), Integer.parseInt(timeArr1[2]), Integer.parseInt(timeArr1[3]));
+    LocalDate checkIn = LocalDate.of(Integer.parseInt(timeArr1[0]), Integer.parseInt(timeArr1[1]), Integer.parseInt(timeArr1[2]));
 
     String[] timeArr2 = rs.getString("check_out").split("-");
-    LocalDate checkOut = LocalDate.of(Integer.parseInt(timeArr2[0]), Integer.parseInt(timeArr2[2]), Integer.parseInt(timeArr2[3]));
+    LocalDate checkOut = LocalDate.of(Integer.parseInt(timeArr2[0]), Integer.parseInt(timeArr2[1]), Integer.parseInt(timeArr2[2]));
 
-    return new Reservation(
+    return new Reservation().createReservation(
         rs.getInt("id"),
         rs.getInt("fk_customer"),
         rs.getInt("fk_room"),

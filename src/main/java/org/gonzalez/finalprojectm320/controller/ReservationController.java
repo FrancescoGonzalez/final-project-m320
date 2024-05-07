@@ -1,6 +1,8 @@
 package org.gonzalez.finalprojectm320.controller;
 
+import org.gonzalez.finalprojectm320.model.Customer;
 import org.gonzalez.finalprojectm320.model.Reservation;
+import org.gonzalez.finalprojectm320.model.Room;
 import org.gonzalez.finalprojectm320.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +31,8 @@ public class ReservationController {
     }
 
     @GetMapping("/reservation/{id}/price")
-    double getReservationPrice(@PathVariable int id) {
-        return service.getReservation(id).calculateTotalPrice();
+    double getTotalPrice(@PathVariable int id) {
+        return service.getReservation(id).calculateTotalPrice(service.getReservationRoom(id).priceForPerson());
     }
 
     @PutMapping("/reservation/{id}")
@@ -41,5 +43,10 @@ public class ReservationController {
     @DeleteMapping("/reservation/{id}")
     boolean deleteReservation(@PathVariable int id) {
         return service.deleteReservation(id);
+    }
+
+    @GetMapping("/reservation/{id}/room")
+    Room getReservationRoom(@PathVariable int id) {
+        return service.getReservationRoom(id);
     }
 }

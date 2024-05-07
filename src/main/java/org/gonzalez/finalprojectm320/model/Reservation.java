@@ -1,25 +1,77 @@
 package org.gonzalez.finalprojectm320.model;
 
 import java.time.LocalDate;
-import org.gonzalez.finalprojectm320.repository.JdbcRoomRepository;
-import org.gonzalez.finalprojectm320.service.RoomService;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.gonzalez.finalprojectm320.service.ReservationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public record Reservation(
-    int id,
-    int customerId,
-    int roomId,
-    int numberOfPeople,
-    LocalDate checkIn,
-    LocalDate checkOut
-) {
-    public Reservation {
+@Component
+public class Reservation {
+    private int id;
+    private int customerId;
+    private int bookableId;
+    private int numberOfPeople;
+    private LocalDate checkIn;
+    private LocalDate checkOut;
+
+    /*
+    *
+    * Basic constructor for Reservation. It should be replaced with a constructor that takes in all the fields of the class. (.createReservation())
+    *
+    * */
+    public Reservation() {
+        this.id = 0;
+        this.customerId = 0;
+        this.bookableId = 0;
+        this.numberOfPeople = 0;
+        this.checkIn = LocalDate.now();
+        this.checkOut = LocalDate.now();
+    }
+
+    public Reservation createReservation(int id, int customerId, int bookableId, int numberOfPeople, LocalDate checkIn, LocalDate checkOut) {
+
         if (checkIn.isAfter(checkOut)) {
             throw new IllegalArgumentException("Check-in date must be before check-out date");
         }
+
+        this.id = id;
+        this.customerId = customerId;
+        this.bookableId = bookableId;
+        this.numberOfPeople = numberOfPeople;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+
+        return this;
     }
 
-    public Double calculateTotalPrice() {
-        return new RoomService(new JdbcRoomRepository(new JdbcTemplate())).getRoom(this.roomId).priceForPerson() * (double) numberOfPeople * (double) checkIn.until(checkOut).getDays();
+    @Autowired
+    private ReservationService reservationService;
+
+    public double calculateTotalPrice(Double priceForPerson) {
+        return numberOfPeople * priceForPerson * checkIn.until(checkOut).getDays();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public int getBookableId() {
+        return bookableId;
+    }
+
+    public int getNumberOfPeople() {
+        return numberOfPeople;
+    }
+
+    public LocalDate getCheckIn() {
+        return checkIn;
+    }
+
+    public LocalDate getCheckOut() {
+        return checkOut;
     }
 }

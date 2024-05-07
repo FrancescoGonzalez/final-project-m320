@@ -2,6 +2,7 @@ package org.gonzalez.finalprojectm320.service;
 
 import java.util.List;
 import org.gonzalez.finalprojectm320.model.Reservation;
+import org.gonzalez.finalprojectm320.model.Room;
 import org.gonzalez.finalprojectm320.repository.interfaces.ReservationRepository;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +33,9 @@ public class ReservationService {
 
     public boolean deleteReservation(int id) {
         return repository.deleteReservation(id);
+    }
+
+    public Room getReservationRoom(int id) {
+        return repository.getReservationRoom(id);
     }
 }

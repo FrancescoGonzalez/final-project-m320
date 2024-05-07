@@ -1,6 +1,7 @@
 package org.gonzalez.finalprojectm320.repository.interfaces;
 
 import java.util.List;
+import org.gonzalez.finalprojectm320.model.Room;
 
 public interface ReservationRepository {
     boolean createReservation(org.gonzalez.finalprojectm320.model.Reservation r);
@@ -11,4 +12,6 @@ public interface ReservationRepository {
     boolean updateReservation(int id, org.gonzalez.finalprojectm320.model.Reservation newReservation);
 
     boolean deleteReservation(int id);
+
+    Room getReservationRoom(int id);
 }

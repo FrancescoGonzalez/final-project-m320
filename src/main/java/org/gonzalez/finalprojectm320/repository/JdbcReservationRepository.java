@@ -4,8 +4,10 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
 import org.gonzalez.finalprojectm320.model.Reservation;
+import org.gonzalez.finalprojectm320.model.Room;
 import org.gonzalez.finalprojectm320.repository.interfaces.ReservationRepository;
 import org.gonzalez.finalprojectm320.repository.mapper.ReservationMapper;
+import org.gonzalez.finalprojectm320.repository.mapper.RoomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -33,11 +35,11 @@ public class JdbcReservationRepository implements ReservationRepository {
     KeyHolder keyHolder = new GeneratedKeyHolder();
     jdbcTemplate.update(connection -> {
       PreparedStatement ps = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
-      ps.setInt(1, r.customerId());
-      ps.setInt(2, r.roomId());
-      ps.setInt(3, r.numberOfPeople());
-      ps.setDate(4, java.sql.Date.valueOf(r.checkIn()));
-      ps.setDate(5, java.sql.Date.valueOf(r.checkOut()));
+      ps.setInt(1, r.getCustomerId());
+      ps.setInt(2, r.getBookableId());
+      ps.setInt(3, r.getNumberOfPeople());
+      ps.setDate(4, java.sql.Date.valueOf(r.getCheckIn()));
+      ps.setDate(5, java.sql.Date.valueOf(r.getCheckOut()));
       return ps;
     }, keyHolder);
 
@@ -52,7 +54,7 @@ public class JdbcReservationRepository implements ReservationRepository {
   @Override
   public Reservation getReservation(int id) {
     try {
-      return jdbcTemplate.queryForObject(SELECT_BY_ID, new Object[]{id}, new ReservationMapper());
+      return jdbcTemplate.queryForObject(SELECT_BY_ID, new ReservationMapper(), id);
     } catch (EmptyResultDataAccessException e) {
       return null;
     }
@@ -61,11 +63,11 @@ public class JdbcReservationRepository implements ReservationRepository {
   @Override
   public boolean updateReservation(int id, Reservation updatedReservation) {
     int rowsAffected = jdbcTemplate.update(UPDATE,
-        updatedReservation.customerId(),
-        updatedReservation.roomId(),
-        updatedReservation.numberOfPeople(),
-        java.sql.Date.valueOf(updatedReservation.checkIn()),
-        java.sql.Date.valueOf(updatedReservation.checkOut()),
+        updatedReservation.getCustomerId(),
+        updatedReservation.getBookableId(),
+        updatedReservation.getNumberOfPeople(),
+        java.sql.Date.valueOf(updatedReservation.getCheckIn()),
+        java.sql.Date.valueOf(updatedReservation.getCheckOut()),
         id);
 
     return rowsAffected > 0;
@@ -74,5 +76,15 @@ public class JdbcReservationRepository implements ReservationRepository {
   @Override
   public boolean deleteReservation(int id) {
     return jdbcTemplate.update("DELETE FROM reservation WHERE id = ?;", id) > 0;
+  }
+
+  @Override
+  public Room getReservationRoom(int id) {
+    try {
+      return jdbcTemplate.queryForObject("Select * from room where id = (Select fk_room from reservation where id = ?)", new RoomMapper(), id);
+    } catch (EmptyResultDataAccessException e) {
+      return null;
+    }
+
   }
 }
