@@ -28,8 +28,18 @@ public class ReservationController {
         return service.getReservation(id);
     }
 
+    @GetMapping("/reservation/{id}/price")
+    double getReservationPrice(@PathVariable int id) {
+        return service.getReservation(id).calculateTotalPrice();
+    }
+
     @PutMapping("/reservation/{id}")
     boolean updateReservation(@PathVariable int id,  @RequestBody Reservation newReservation) {
         return service.updateReservation(id, newReservation);
+    }
+
+    @DeleteMapping("/reservation/{id}")
+    boolean deleteReservation(@PathVariable int id) {
+        return service.deleteReservation(id);
     }
 }

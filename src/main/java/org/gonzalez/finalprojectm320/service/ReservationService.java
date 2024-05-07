@@ -29,4 +29,8 @@ public class ReservationService {
     public boolean updateReservation(int id, org.gonzalez.finalprojectm320.model.Reservation newReservation) {
         return repository.updateReservation(id, newReservation);
     }
+
+    public boolean deleteReservation(int id) {
+        return repository.deleteReservation(id);
+    }
 }

@@ -70,4 +70,9 @@ public class JdbcReservationRepository implements ReservationRepository {
 
     return rowsAffected > 0;
   }
+
+  @Override
+  public boolean deleteReservation(int id) {
+    return jdbcTemplate.update("DELETE FROM reservation WHERE id = ?;", id) > 0;
+  }
 }

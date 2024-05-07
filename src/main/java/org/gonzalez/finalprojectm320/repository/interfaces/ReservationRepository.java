@@ -9,4 +9,6 @@ public interface ReservationRepository {
     org.gonzalez.finalprojectm320.model.Reservation getReservation(int id);
 
     boolean updateReservation(int id, org.gonzalez.finalprojectm320.model.Reservation newReservation);
+
+    boolean deleteReservation(int id);
 }

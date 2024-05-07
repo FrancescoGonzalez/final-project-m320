@@ -34,7 +34,7 @@ public class JdbcCustomerRepository implements CustomerRepository {
           Statement.RETURN_GENERATED_KEYS);
       ps.setString(1, c.firstName());
       ps.setString(2, c.lastName());
-      ps.setString(3, c.birthDate());
+      ps.setDate(3, java.sql.Date.valueOf(c.birthDate()));
       ps.setString(4, c.nationality());
       return ps;
     }, keyHolder);

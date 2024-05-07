@@ -16,4 +16,12 @@ public class RoomService {
     public boolean createRoom(Room r) {
         return repository.createRoom(r);
     }
+
+    public Room getRoom(int id) {
+        return repository.getRoom(id);
+    }
+
+    public java.util.List<Room> getRooms() {
+        return repository.getRooms();
+    }
 }

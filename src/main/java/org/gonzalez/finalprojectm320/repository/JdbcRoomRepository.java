@@ -2,9 +2,12 @@ package org.gonzalez.finalprojectm320.repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.List;
 import org.gonzalez.finalprojectm320.model.Room;
 import org.gonzalez.finalprojectm320.repository.interfaces.RoomRepository;
+import org.gonzalez.finalprojectm320.repository.mapper.RoomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -19,6 +22,9 @@ public class JdbcRoomRepository implements RoomRepository {
   public JdbcRoomRepository(JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
   }
+
+  public final String SELECT_BY_ID = "SELECT * FROM room WHERE id = ?;";
+  private static final String SELECT_ALL = "SELECT * FROM room;";
 
   @Override
   public boolean createRoom(Room r) {
@@ -37,5 +43,19 @@ public class JdbcRoomRepository implements RoomRepository {
     }, keyHolder);
 
     return keyHolder.getKey().intValue() > 0;
+  }
+
+  @Override
+  public Room getRoom(int id) {
+    try {
+      return jdbcTemplate.queryForObject(SELECT_BY_ID, new Object[]{id}, new RoomMapper());
+    } catch (EmptyResultDataAccessException e) {
+      return null;
+    }
+  }
+
+  @Override
+  public List<Room> getRooms() {
+    return jdbcTemplate.query(SELECT_ALL, new RoomMapper());
   }
 }
