@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Reservation {
+
+
     private int id;
     private int customerId;
     private int bookableId;
@@ -42,10 +44,6 @@ public class Reservation {
         return this;
     }
 
-    public double calculateTotalPrice(Double priceForPerson) {
-        return numberOfPeople * priceForPerson * checkIn.until(checkOut).getDays();
-    }
-
     public int getId() {
         return id;
     }
@@ -68,5 +66,9 @@ public class Reservation {
 
     public LocalDate getCheckOut() {
         return checkOut;
+    }
+
+    public int reservedDays(){
+        return checkIn.until(checkOut).getDays();
     }
 }

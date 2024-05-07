@@ -7,14 +7,13 @@ import org.gonzalez.finalprojectm320.repository.JdbcCustomerRepository;
 import org.gonzalez.finalprojectm320.repository.interfaces.ReservationRepository;
 import org.gonzalez.finalprojectm320.repository.interfaces.RoomRepository;
 import org.gonzalez.finalprojectm320.usecase.CustomerService;
-import org.gonzalez.finalprojectm320.usecase.ReservationService;
 import org.gonzalez.finalprojectm320.usecase.RoomService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 @Configuration
-public class MyConfiguration {
+public class ReservationSystemConfig {
 
     @Bean
     public CustomerRepository customerRepository(JdbcTemplate jdbcTemplate) {
@@ -39,10 +38,5 @@ public class MyConfiguration {
     @Bean
     public ReservationRepository reservationRepository(JdbcTemplate jdbcTemplate) {
         return new JdbcReservationRepository(jdbcTemplate);
-    }
-
-    @Bean
-    public ReservationService reservationService(ReservationRepository reservationRepository) {
-        return new ReservationService(reservationRepository);
     }
 }

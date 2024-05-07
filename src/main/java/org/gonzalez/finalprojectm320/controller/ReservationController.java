@@ -1,13 +1,16 @@
 package org.gonzalez.finalprojectm320.controller;
 
-import org.gonzalez.finalprojectm320.model.Customer;
+import java.util.List;
 import org.gonzalez.finalprojectm320.model.Reservation;
-import org.gonzalez.finalprojectm320.model.Room;
 import org.gonzalez.finalprojectm320.usecase.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ReservationController {
@@ -32,7 +35,7 @@ public class ReservationController {
 
     @GetMapping("/reservation/{id}/price")
     double getTotalPrice(@PathVariable int id) {
-        return service.getReservation(id).calculateTotalPrice(service.getReservationRoom(id).priceForPerson());
+        return service.calculateTotalPrice(id);
     }
 
     @PutMapping("/reservation/{id}")
@@ -45,13 +48,5 @@ public class ReservationController {
         return service.deleteReservation(id);
     }
 
-    @GetMapping("/reservation/{id}/room")
-    Room getReservationRoom(@PathVariable int id) {
-        return service.getReservationRoom(id);
-    }
 
-    @GetMapping("/reservation/{id}/customer")
-    Customer getReservationCustomer(@PathVariable int id) {
-        return service.getReservationCustomer(id);
-    }
 }

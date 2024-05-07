@@ -3,13 +3,9 @@ package org.gonzalez.finalprojectm320.repository;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
-import org.gonzalez.finalprojectm320.model.Customer;
 import org.gonzalez.finalprojectm320.model.Reservation;
-import org.gonzalez.finalprojectm320.model.Room;
 import org.gonzalez.finalprojectm320.repository.interfaces.ReservationRepository;
-import org.gonzalez.finalprojectm320.repository.mapper.CustomerMapper;
 import org.gonzalez.finalprojectm320.repository.mapper.ReservationMapper;
-import org.gonzalez.finalprojectm320.repository.mapper.RoomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -80,22 +76,6 @@ public class JdbcReservationRepository implements ReservationRepository {
     return jdbcTemplate.update("DELETE FROM reservation WHERE id = ?;", id) > 0;
   }
 
-  @Override
-  public Room getReservationRoom(int id) {
-    try {
-      return jdbcTemplate.queryForObject("Select * from room where id = (Select fk_room from reservation where id = ?)", new RoomMapper(), id);
-    } catch (EmptyResultDataAccessException e) {
-      return null;
-    }
 
-  }
 
-  @Override
-  public Customer getReservationCustomer(int id) {
-    try {
-      return jdbcTemplate.queryForObject("Select * from customer where id = (Select fk_customer from reservation where id = ?)", new CustomerMapper(), id);
-    } catch (EmptyResultDataAccessException e) {
-      return null;
-    }
-  }
 }
