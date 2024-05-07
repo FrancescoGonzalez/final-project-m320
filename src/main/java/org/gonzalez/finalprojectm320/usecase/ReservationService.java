@@ -46,8 +46,8 @@ public class ReservationService {
 
     public double calculateTotalPrice(int id) {
         Reservation reservation = reservationRepository.getReservation(id);
-        Bookable reservedBookable = roomRepository.getRoom(reservation.getBookableId());
+        Bookable reservedBookable = roomRepository.getRoom(reservation.bookableId());
 
-        return reservation.getNumberOfPeople()* reservedBookable.getPriceForPerson() * reservation.reservedDays();
+        return reservation.numberOfPeople()* reservedBookable.getPriceForPerson() * reservation.reservedDays();
     }
 }
