@@ -1,8 +1,6 @@
 package org.gonzalez.finalprojectm320.model;
 
 import java.time.LocalDate;
-import org.gonzalez.finalprojectm320.service.ReservationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -43,9 +41,6 @@ public class Reservation {
 
         return this;
     }
-
-    @Autowired
-    private ReservationService reservationService;
 
     public double calculateTotalPrice(Double priceForPerson) {
         return numberOfPeople * priceForPerson * checkIn.until(checkOut).getDays();

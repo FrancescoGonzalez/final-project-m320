@@ -1,4 +1,4 @@
-package org.gonzalez.finalprojectm320.service;
+package org.gonzalez.finalprojectm320.usecase;
 
 import org.gonzalez.finalprojectm320.model.Room;
 import org.gonzalez.finalprojectm320.repository.interfaces.RoomRepository;
