@@ -10,7 +10,7 @@ public class CustomerMapper implements RowMapper<Customer>{
   @Override
   public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
     String[] time = rs.getString("birth_date").split("-");
-    LocalDate birthDate = LocalDate.of(Integer.parseInt(time[0]), Integer.parseInt(time[2]), Integer.parseInt(time[3]));
+    LocalDate birthDate = LocalDate.of(Integer.parseInt(time[0]), Integer.parseInt(time[1]), Integer.parseInt(time[2]));
 
     return new Customer(
         rs.getInt("id"),

@@ -48,7 +48,7 @@ public class JdbcRoomRepository implements RoomRepository {
   @Override
   public Room getRoom(int id) {
     try {
-      return jdbcTemplate.queryForObject(SELECT_BY_ID, new Object[]{id}, new RoomMapper());
+      return jdbcTemplate.queryForObject(SELECT_BY_ID, new RoomMapper(), id);
     } catch (EmptyResultDataAccessException e) {
       return null;
     }
