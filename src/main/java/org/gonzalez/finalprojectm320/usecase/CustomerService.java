@@ -21,4 +21,8 @@ public class CustomerService {
     public List<Customer> getCustomers() {
         return repository.getCustomers();
     }
+
+    public Customer getCustomer(int id) {
+        return repository.getCustomer(id);
+    }
 }

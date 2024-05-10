@@ -17,8 +17,8 @@ public class JdbcCustomerRepository implements CustomerRepository {
 
   private final JdbcTemplate jdbcTemplate;
 
-  private static final String INSERT = "INSERT INTO customer (first_name, last_name, birth_date, nationality) VALUES (?, ?, ?, ?);";
-  private static final String SELECT = "SELECT * FROM customer;";
+  private static final String INSERT = "INSERT INTO customer (first_name, last_name, birth_date, nationality) VALUES (?, ?, ?, ?)";
+  private static final String SELECT = "SELECT * FROM customer";
 
   @Autowired
   public JdbcCustomerRepository(JdbcTemplate jdbcTemplate) {
@@ -45,5 +45,10 @@ public class JdbcCustomerRepository implements CustomerRepository {
   @Override
   public List<Customer> getCustomers() {
     return jdbcTemplate.query(SELECT, new CustomerMapper());
+  }
+
+  @Override
+  public Customer getCustomer(int id) {
+      return jdbcTemplate.queryForObject(SELECT + " WHERE id = ?;", new CustomerMapper(), id);
   }
 }
