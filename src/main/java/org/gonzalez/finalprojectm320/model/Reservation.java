@@ -17,6 +17,6 @@ public record Reservation(
     }
 
     public int reservedDays(){
-        return checkIn.until(checkOut).getDays();
+        return (int) java.time.temporal.ChronoUnit.DAYS.between(checkIn, checkOut.plusDays(1));
     }
 }
