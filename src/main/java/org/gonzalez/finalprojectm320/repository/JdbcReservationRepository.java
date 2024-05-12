@@ -30,21 +30,25 @@ public class JdbcReservationRepository implements ReservationRepository {
 
   @Override
   public boolean createReservation(Reservation r) {
-    if (!checkAvailability(r.bookableId(), java.sql.Date.valueOf(r.checkIn()), java.sql.Date.valueOf(r.checkOut()))) {
+    try {
+      if (!checkAvailability(r.bookableId(), java.sql.Date.valueOf(r.checkIn()), java.sql.Date.valueOf(r.checkOut()))) {
+        return false;
+      }
+      KeyHolder keyHolder = new GeneratedKeyHolder();
+      jdbcTemplate.update(connection -> {
+        PreparedStatement ps = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
+        ps.setInt(1, r.customerId());
+        ps.setInt(2, r.bookableId());
+        ps.setInt(3, r.numberOfPeople());
+        ps.setDate(4, java.sql.Date.valueOf(r.checkIn()));
+        ps.setDate(5, java.sql.Date.valueOf(r.checkOut()));
+        return ps;
+      }, keyHolder);
+
+      return keyHolder.getKey() != null && keyHolder.getKey().intValue() > 0;
+    } catch (Exception e) {
       return false;
     }
-    KeyHolder keyHolder = new GeneratedKeyHolder();
-    jdbcTemplate.update(connection -> {
-      PreparedStatement ps = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
-      ps.setInt(1, r.customerId());
-      ps.setInt(2, r.bookableId());
-      ps.setInt(3, r.numberOfPeople());
-      ps.setDate(4, java.sql.Date.valueOf(r.checkIn()));
-      ps.setDate(5, java.sql.Date.valueOf(r.checkOut()));
-      return ps;
-    }, keyHolder);
-
-    return keyHolder.getKey() != null && keyHolder.getKey().intValue() > 0;
   }
 
   @Override
@@ -63,18 +67,21 @@ public class JdbcReservationRepository implements ReservationRepository {
 
   @Override
   public boolean updateReservation(int id, Reservation updatedReservation) {
-    if (!checkAvailability(updatedReservation.bookableId(), java.sql.Date.valueOf(updatedReservation.checkIn()), java.sql.Date.valueOf(updatedReservation.checkOut()))) {
+    try {
+      if (!checkAvailability(updatedReservation.bookableId(), java.sql.Date.valueOf(updatedReservation.checkIn()), java.sql.Date.valueOf(updatedReservation.checkOut()))) {
+        return false;
+      }
+      int rowsAffected = jdbcTemplate.update(UPDATE,
+              updatedReservation.customerId(),
+              updatedReservation.bookableId(),
+              updatedReservation.numberOfPeople(),
+              java.sql.Date.valueOf(updatedReservation.checkIn()),
+              java.sql.Date.valueOf(updatedReservation.checkOut()),
+              id);
+      return rowsAffected > 0;
+    } catch (Exception e) {
       return false;
     }
-    int rowsAffected = jdbcTemplate.update(UPDATE,
-            updatedReservation.customerId(),
-            updatedReservation.bookableId(),
-            updatedReservation.numberOfPeople(),
-            java.sql.Date.valueOf(updatedReservation.checkIn()),
-            java.sql.Date.valueOf(updatedReservation.checkOut()),
-            id);
-    return rowsAffected > 0;
-
   }
 
   @Override
