@@ -30,6 +30,9 @@ public class JdbcReservationRepository implements ReservationRepository {
 
   @Override
   public boolean createReservation(Reservation r) {
+    if (!checkAvailability(r.bookableId(), java.sql.Date.valueOf(r.checkIn()), java.sql.Date.valueOf(r.checkOut()))) {
+      return false;
+    }
     KeyHolder keyHolder = new GeneratedKeyHolder();
     jdbcTemplate.update(connection -> {
       PreparedStatement ps = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
@@ -60,21 +63,30 @@ public class JdbcReservationRepository implements ReservationRepository {
 
   @Override
   public boolean updateReservation(int id, Reservation updatedReservation) {
+    if (!checkAvailability(updatedReservation.bookableId(), java.sql.Date.valueOf(updatedReservation.checkIn()), java.sql.Date.valueOf(updatedReservation.checkOut()))) {
+      return false;
+    }
     int rowsAffected = jdbcTemplate.update(UPDATE,
-        updatedReservation.customerId(),
-        updatedReservation.bookableId(),
-        updatedReservation.numberOfPeople(),
-        java.sql.Date.valueOf(updatedReservation.checkIn()),
-        java.sql.Date.valueOf(updatedReservation.checkOut()),
-        id);
-
+            updatedReservation.customerId(),
+            updatedReservation.bookableId(),
+            updatedReservation.numberOfPeople(),
+            java.sql.Date.valueOf(updatedReservation.checkIn()),
+            java.sql.Date.valueOf(updatedReservation.checkOut()),
+            id);
     return rowsAffected > 0;
+
   }
 
   @Override
   public boolean deleteReservation(int id) {
     return jdbcTemplate.update("DELETE FROM reservation WHERE id = ?;", id) > 0;
   }
+
+  @Override
+  public boolean checkAvailability(int bookableId, java.sql.Date checkIn, java.sql.Date checkOut) {
+    return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM reservation WHERE fk_room = ? AND check_in <= ? AND check_out >= ?;", Integer.class, bookableId, checkOut, checkIn) == 0;
+  }
+
 
 
 

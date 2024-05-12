@@ -12,5 +12,7 @@ public interface ReservationRepository {
 
     boolean deleteReservation(int id);
 
+    boolean checkAvailability(int bookableId, java.sql.Date checkIn, java.sql.Date checkOut);
+
 
 }

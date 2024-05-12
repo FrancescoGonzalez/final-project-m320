@@ -43,5 +43,10 @@ public class ReservationController {
         return service.deleteReservation(id);
     }
 
+    @GetMapping("/reservation/availability")
+    boolean checkAvailability(@RequestBody Reservation r) {
+        return service.checkAvailability(r.bookableId(), java.sql.Date.valueOf(r.checkIn()), java.sql.Date.valueOf(r.checkOut()));
+    }
+
 
 }

@@ -2,7 +2,8 @@
 
 ## Description
 
-This project is a hotel reservation system developed using Java, Spring Boot, and H2.
+This project is a hotel reservation system developed using Java, Spring Boot.
+I attached an H2 database to the project to store the data, located in the `databaseM320` folder.
 
 ## Usage
 

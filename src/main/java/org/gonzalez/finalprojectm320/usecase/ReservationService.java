@@ -50,4 +50,8 @@ public class ReservationService {
 
         return reservation.numberOfPeople()* reservedBookable.getPriceForPerson() * reservation.reservedDays();
     }
+
+    public boolean checkAvailability(int bookableId, java.sql.Date checkIn, java.sql.Date checkOut) {
+        return reservationRepository.checkAvailability(bookableId, checkIn, checkOut);
+    }
 }
