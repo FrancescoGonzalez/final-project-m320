@@ -2,7 +2,7 @@ package org.gonzalez.finalprojectm320.controller;
 
 import java.util.List;
 import org.gonzalez.finalprojectm320.model.Customer;
-import org.gonzalez.finalprojectm320.usecase.CustomerService;
+import org.gonzalez.finalprojectm320.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package org.gonzalez.finalprojectm320.usecase;
+package org.gonzalez.finalprojectm320.service;
 
 import java.util.List;
 import org.gonzalez.finalprojectm320.model.Customer;
