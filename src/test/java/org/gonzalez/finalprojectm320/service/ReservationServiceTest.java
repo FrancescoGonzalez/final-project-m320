@@ -20,7 +20,7 @@ class ReservationServiceTest {
 
     @Test
     void createReservation() {
-        Reservation reservation = new Reservation(0, 1, 1, 2, LocalDate.of(2021, 1, 10), LocalDate.of(2021, 1, 20));
+        Reservation reservation = new Reservation(0, 1, 1, 2, LocalDate.of(2022, 1, 10), LocalDate.of(2022, 1, 20));
         boolean result = service.createReservation(reservation);
         assertTrue(result);
     }
