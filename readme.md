@@ -15,6 +15,8 @@ I created the interface `Bookable`, witch permits a better usability of the code
 
 For more usability with a Front-End, on every controller I added a `@CrossOrigin` annotation, to permit the access from a different origin.
 
+The application runs on `localhost:8080` and if you like I created a frontend for this project, you can find it [here](https://github.com/FrancescoGonzalez/final-project-m320-webapp)
+
 ## Endpoints
 
 The application has the following endpoints:
@@ -43,4 +45,4 @@ Then, you can run the application with `mvn spring-boot:run`, or by starting the
 
 ## Author
 
-This application was created by Francesco González (I2a) and sent on the 13th of May '24.
+This application was created by Francesco González (I2a-MI2) and sent on the 13th of May '24.
