@@ -67,21 +67,15 @@ public class JdbcReservationRepository implements ReservationRepository {
 
   @Override
   public boolean updateReservation(int id, Reservation updatedReservation) {
-    try {
-      if (!checkAvailability(updatedReservation.bookableId(), java.sql.Date.valueOf(updatedReservation.checkIn()), java.sql.Date.valueOf(updatedReservation.checkOut()))) {
-        return false;
-      }
-      int rowsAffected = jdbcTemplate.update(UPDATE,
-              updatedReservation.customerId(),
-              updatedReservation.bookableId(),
-              updatedReservation.numberOfPeople(),
-              java.sql.Date.valueOf(updatedReservation.checkIn()),
-              java.sql.Date.valueOf(updatedReservation.checkOut()),
-              id);
-      return rowsAffected > 0;
-    } catch (Exception e) {
-      return false;
-    }
+    int rowsAffected = jdbcTemplate.update(UPDATE,
+            updatedReservation.customerId(),
+            updatedReservation.bookableId(),
+            updatedReservation.numberOfPeople(),
+            java.sql.Date.valueOf(updatedReservation.checkIn()),
+            java.sql.Date.valueOf(updatedReservation.checkOut()),
+            id);
+    return rowsAffected > 0;
+
   }
 
   @Override
