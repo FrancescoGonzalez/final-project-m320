@@ -19,6 +19,8 @@ The application runs on `localhost:8080` and if you like I created a frontend fo
 
 ## Endpoints
 
+For each and every endpoint, you can try it using the swagger found at http://localhost:8080/swagger-ui/index.html
+
 The application has the following endpoints:
 
 ### Room
