@@ -1,0 +1,291 @@
+openapi: "3.0.3"
+info:
+  title: Final Project M320 API
+  version: "1.0.0"
+  description: Hotel reservation system API
+
+servers:
+  - url: http://localhost:8080
+    description: Local dev
+
+paths:
+  /customer:
+    post:
+      summary: Create a new customer
+      operationId: createCustomer
+      tags: [Customer]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Customer"
+      responses:
+        "200":
+          description: true if created successfully
+          content:
+            application/json:
+              schema:
+                type: boolean
+
+    get:
+      summary: Get all customers
+      operationId: getCustomers
+      tags: [Customer]
+      responses:
+        "200":
+          description: List of customers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Customer"
+
+  /customer/{id}:
+    get:
+      summary: Get a customer by ID
+      operationId: getCustomer
+      tags: [Customer]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Customer found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customer"
+
+  /room:
+    post:
+      summary: Create a new room
+      operationId: createRoom
+      tags: [Room]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Room"
+      responses:
+        "200":
+          description: true if created successfully
+          content:
+            application/json:
+              schema:
+                type: boolean
+
+    get:
+      summary: Get all rooms
+      operationId: getRooms
+      tags: [Room]
+      responses:
+        "200":
+          description: List of rooms
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Room"
+
+  /room/{id}:
+    get:
+      summary: Get a room by ID
+      operationId: getRoom
+      tags: [Room]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Room found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Room"
+
+  /reservation:
+    post:
+      summary: Create a new reservation
+      operationId: createReservation
+      tags: [Reservation]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Reservation"
+      responses:
+        "200":
+          description: true if created successfully
+          content:
+            application/json:
+              schema:
+                type: boolean
+
+    get:
+      summary: Get all reservations
+      operationId: getReservations
+      tags: [Reservation]
+      responses:
+        "200":
+          description: List of reservations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Reservation"
+
+  /reservation/availability:
+    get:
+      summary: Check availability for a bookable item
+      operationId: checkAvailability
+      tags: [Reservation]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Reservation"
+      responses:
+        "200":
+          description: true if available
+          content:
+            application/json:
+              schema:
+                type: boolean
+
+  /reservation/{id}:
+    get:
+      summary: Get a reservation by ID
+      operationId: getReservation
+      tags: [Reservation]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Reservation found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Reservation"
+
+    put:
+      summary: Update a reservation
+      operationId: updateReservation
+      tags: [Reservation]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Reservation"
+      responses:
+        "200":
+          description: true if updated successfully
+          content:
+            application/json:
+              schema:
+                type: boolean
+
+    delete:
+      summary: Delete a reservation
+      operationId: deleteReservation
+      tags: [Reservation]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: true if deleted successfully
+          content:
+            application/json:
+              schema:
+                type: boolean
+
+  /reservation/{id}/price:
+    get:
+      summary: Get total price for a reservation
+      operationId: getTotalPrice
+      tags: [Reservation]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Total price
+          content:
+            application/json:
+              schema:
+                type: number
+                format: double
+
+components:
+  schemas:
+
+    Customer:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+
+    Room:
+      type: object
+      properties:
+        id:
+          type: integer
+        number:
+          type: string
+        type:
+          type: string
+        pricePerNight:
+          type: number
+          format: double
+
+    Reservation:
+      type: object
+      properties:
+        id:
+          type: integer
+        bookableId:
+          type: integer
+        customerId:
+          type: integer
+        checkIn:
+          type: string
+          format: date
+          example: "2026-04-01"
+        checkOut:
+          type: string
+          format: date
+          example: "2026-04-05"
